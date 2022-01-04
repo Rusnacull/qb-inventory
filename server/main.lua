@@ -742,6 +742,14 @@ RegisterNetEvent('inventory:server:OpenInventory', function(name, id, other)
 				ShopItems[id] = {}
 				ShopItems[id].items = other.items
 				secondInv.slots = #other.items
+			elseif name == "shopurban" then
+				secondInv.name = "itemshopurban-"..id
+				secondInv.label = other.label
+				secondInv.maxweight = 900000
+				secondInv.inventory = SetupShopItems(id, other.items)
+				ShopItems[id] = {}
+				ShopItems[id].items = other.items
+				secondInv.slots = #other.items
 			elseif name == "traphouse" then
 				secondInv.name = "traphouse-"..id
 				secondInv.label = other.label
@@ -1262,6 +1270,7 @@ RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, to
 		local itemData = ShopItems[shopType].items[fromSlot]
 		local itemInfo = QBCore.Shared.Items[itemData.name:lower()]
 		local bankBalance = Player.PlayerData.money["bank"]
+		local urbankBalance = Player.PlayerData.money["newcoin"]
 		local price = tonumber((itemData.price*fromAmount))
 
 		if QBCore.Shared.SplitStr(shopType, "_")[1] == "Dealer" then
@@ -1306,6 +1315,19 @@ RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, to
 				TriggerEvent("qb-log:server:CreateLog", "shops", "Shop item bought", "green", "**"..GetPlayerName(src) .. "** bought a " .. itemInfo["label"] .. " for $"..price)
 			else
 				TriggerClientEvent('QBCore:Notify', src, "You don't have enough cash..", "error")
+			end
+		elseif QBCore.Shared.SplitStr(shopType, "_")[1] == "Itemshopurban" then
+				if urbankBalance >= price then
+				Player.Functions.RemoveMoney("newcoin", price, "itemshop-bought-item")
+                if QBCore.Shared.SplitStr(itemData.name, "_")[1] == "weapon" then
+                    itemData.info.serie = tostring(QBCore.Shared.RandomInt(2) .. QBCore.Shared.RandomStr(3) .. QBCore.Shared.RandomInt(1) .. QBCore.Shared.RandomStr(2) .. QBCore.Shared.RandomInt(3) .. QBCore.Shared.RandomStr(4))
+                end
+				Player.Functions.AddItem(itemData.name, fromAmount, toSlot, itemData.info)
+				TriggerClientEvent('QBCore:Notify', src, itemInfo["label"] .. " cumparat!", "success")
+				--TriggerEvent("rus_notificare:showNotification", {" 222222222222222!"})
+				TriggerEvent("qb-log:server:CreateLog", "shops", "222222222222", "green", "**"..GetPlayerName(src) .. "** bought a " .. itemInfo["label"] .. " for $"..price)
+			else
+				TriggerClientEvent('QBCore:Notify', src, "Nu detii suficient UC..", "error")
 			end
 		else
 			if Player.Functions.RemoveMoney("cash", price, "unkown-itemshop-bought-item") then

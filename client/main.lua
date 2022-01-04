@@ -555,53 +555,56 @@ RegisterCommand('inventory', function()
                     local maxweight = 0
                     local slots = 0
                     if vehicleClass == 0 then
-                        maxweight = 38000
-                        slots = 30
+                        maxweight = 30000
+                        slots = 5
                     elseif vehicleClass == 1 then
-                        maxweight = 50000
-                        slots = 40
+                        maxweight = 60000
+                        slots = 10
                     elseif vehicleClass == 2 then
-                        maxweight = 75000
-                        slots = 50
+                        maxweight = 100000
+                        slots = 15
                     elseif vehicleClass == 3 then
-                        maxweight = 42000
-                        slots = 35
+                        maxweight = 40000
+                        slots = 10
                     elseif vehicleClass == 4 then
-                        maxweight = 38000
-                        slots = 30
+                        maxweight = 30000
+                        slots = 5
                     elseif vehicleClass == 5 then
                         maxweight = 30000
-                        slots = 25
+                        slots = 5
                     elseif vehicleClass == 6 then
                         maxweight = 30000
-                        slots = 25
+                        slots = 5
                     elseif vehicleClass == 7 then
                         maxweight = 30000
-                        slots = 25
+                        slots = 5
                     elseif vehicleClass == 8 then
-                        maxweight = 15000
-                        slots = 15
+                        maxweight = 10000
+                        slots = 5
                     elseif vehicleClass == 9 then
-                        maxweight = 60000
-                        slots = 35
+                        maxweight = 100000
+                        slots = 30
+                    elseif vehicleClass == 10 then
+                        maxweight = 200000
+                        slots = 40
                     elseif vehicleClass == 12 then
-                        maxweight = 120000
-                        slots = 35
+                        maxweight = 400000
+                        slots = 40
 		            elseif vehicleClass == 13 then
                         maxweight = 0
                         slots = 0
                     elseif vehicleClass == 14 then
-                        maxweight = 120000
-                        slots = 50
+                        maxweight = 100000
+                        slots = 30
                     elseif vehicleClass == 15 then
-                        maxweight = 120000
+                        maxweight = 400000
                         slots = 50
                     elseif vehicleClass == 16 then
-                        maxweight = 120000
+                        maxweight = 500000
                         slots = 50
                     else
-                        maxweight = 60000
-                        slots = 35
+                        maxweight = 35000
+                        slots = 5
                     end
                     local other = {
                         maxweight = maxweight,
